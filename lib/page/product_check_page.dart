@@ -13,13 +13,16 @@ class ProductCheckPage extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: FutureBuilder<http.Response>(
-          future : http.get(Uri.parse("https://fakestoreapi.com/products/1")),
+          future : http.get(Uri.parse("https://fakestoreapi.com/products/")),
           builder:(_,snapshot){
             if(snapshot.hasData && snapshot.data !=null){
               String body = snapshot.data!.body;
-              //{"id":1,"title":"Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops","price":109.95,"description":"Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday","category":"men's clothing","image":"https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg","rating":{"rate":3.9,"count":120}}
-              Product product = Product.fromJson(jsonDecode(body));
-              return Text(" le nom du produit téléchargé est : ${product.title}");
+              final List<dynamic> lsProductsJSON= jsonDecode(body);
+              List<Product> lsProducts = List.empty(growable: true);
+              lsProductsJSON.forEach((mapProduct) =>
+                lsProducts.add(Product.fromJson(mapProduct))
+              );
+              return Text(" le nom du produit téléchargé est : ${lsProducts[12].title}");
             }
             return const CircularProgressIndicator();
           }
