@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_sales/page/product_check_page.dart';
 import 'package:flutter_sales/product_model.dart';
 import 'page/cart_page.dart';
 import 'page/list_product_page.dart';
@@ -17,7 +18,8 @@ class MyApp extends StatelessWidget {
     routes: <GoRoute>[
       GoRoute(
         path: '/',
-        builder: (_, state) => ListProductPage(),
+        //builder: (_, state) => ListProductPage(),
+        builder: (_, state) => ProductCheckPage(),
         routes: [
           GoRoute(
             path: 'detail',

@@ -25,8 +25,8 @@ class ListProductPage extends StatelessWidget {
           return InkWell(
             onTap: () => context.go('/detail',extra: lsProducts[index]),
             child: ListTile(
-              title: Text(lsProducts[index].nom),
-              subtitle: Text("${lsProducts[index].prix} €",
+              title: Text(lsProducts[index].title),
+              subtitle: Text("${lsProducts[index].price} €",
                 style: Theme.of(context).textTheme.titleLarge),
               leading: Hero(
                 tag: lsProducts[index].id,
