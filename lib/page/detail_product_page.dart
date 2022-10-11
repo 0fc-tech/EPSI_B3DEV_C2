@@ -9,7 +9,18 @@ class DetailProductPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text("Le nom du produit est ${product.nom}")),
+      body: Center(child: Column(
+        children: [
+          Text("Le nom du produit est ${product.nom}"),
+          Hero(
+            tag: product.id, 
+            child: ClipOval(
+              child: Image.network(
+                product.image,width: 80,height:80,)
+            )
+          )
+        ],
+      )),
     );
   }
 }

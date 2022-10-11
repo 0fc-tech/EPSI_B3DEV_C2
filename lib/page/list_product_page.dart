@@ -28,7 +28,11 @@ class ListProductPage extends StatelessWidget {
               title: Text(lsProducts[index].nom),
               subtitle: Text("${lsProducts[index].prix} €",
                 style: Theme.of(context).textTheme.titleLarge),
-              leading: Image.network(lsProducts[index].image, width: 80, height: 80),
+              leading: Hero(
+                tag: lsProducts[index].id,
+                child: Image.network(lsProducts[index].image,
+                  width: 80, height: 80),
+              ),
             ),
           );
         }
