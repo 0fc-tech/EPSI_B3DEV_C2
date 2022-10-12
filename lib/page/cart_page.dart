@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../model/cart_model.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({Key? key}) : super(key: key);
@@ -10,23 +13,31 @@ class CartPage extends StatelessWidget {
       appBar: AppBar(title: const Text("Panier Flutter Sales"),),
       body: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              Text("Votre panier total est de :"),
-              Text("0.00€",style: TextStyle(fontWeight: FontWeight.bold),),
-            ],
+          Text("Votre panier contient "
+            "${context.watch<CartModel>().lsProducts.length}"
+            " éléments",style: TextStyle(fontWeight: FontWeight.bold),),
+          Consumer<CartModel>(
+            builder: (_,cart,__)=> Expanded(
+              child: ListView.builder(
+                itemCount: cart.lsProducts.length,
+                itemBuilder: (_,index){
+                  final product = cart.lsProducts[index];
+                  return ListTile(
+                    leading: Image.network(product.image,width: 60,height: 60,),
+                    title: Text(product.title),
+                    trailing: IconButton(
+                      onPressed: ()=> cart.removeProduct(product),
+                      icon: const Icon(Icons.delete)
+                    ),
+                  );
+                }
+              ),
+            )
           ),
-          Spacer(),
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-              Text("Votre panier est actuellement vide"),
-              Icon(CupertinoIcons.photo)
-            ],),
+          Text("Votre panier total est de : "
+            "${context.watch<CartModel>().getPriceCart()}",
+            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25)
           ),
-          Spacer()
         ],
       ),
     );
